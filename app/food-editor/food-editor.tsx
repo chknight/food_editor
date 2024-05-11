@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import FoodDisplay from "./food-display";
-import { AxesViewer, DebugBlock, FreeCamera, HemisphericLight, Mesh, MeshBuilder, Vector3 } from "@babylonjs/core";
+import { AxesViewer, DebugBlock, FreeCamera, HemisphericLight, Mesh, MeshBuilder, StandardMaterial, Texture, Vector3 } from "@babylonjs/core";
 import { Box, Container, Typography } from "@mui/material";
 import ControlPanel from "./control-panel/control-panel";
 import { useEffect, useState } from "react";
@@ -40,6 +40,10 @@ export default function FoodEditor() {
 
         // Our built-in 'box' shape.
         food = MeshBuilder.CreateSphere("apple", { diameter: 2 }, scene);
+
+        let appleMaterial = new StandardMaterial("appleMaterial", scene);
+        appleMaterial.diffuseTexture = new Texture("./textures/apple_texture.png", scene);
+        food.material = appleMaterial;
 
         // Move the box upward 1/2 its height
         food.position.y = 1;
